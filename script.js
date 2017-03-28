@@ -1,23 +1,18 @@
-var ismobile = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i) != null
-var touchorclick = (ismobile)? 'touchstart' : 'click'
-var searchcontainer = document.getElementById('searchcontainer')
-var searchfield = document.getElementById('search-terms')
-var searchlabel = document.getElementById('search-label')
+var newLink = document.createElement("a");
+var allParagraphs = document.getElementsByTagName("p");
+var firstParagraph = allParagraphs[0];
 
-searchlabel.addEventListener(touchorclick, function(e){ // when user clicks on search label
-    searchcontainer.classList.toggle('opensearch') // add or remove 'opensearch' to searchcontainer
-    if (!searchcontainer.classList.contains('opensearch')){ // if hiding searchcontainer
-        searchfield.blur() // blur search field
-        e.preventDefault() // prevent default label behavior of focusing on search field again
-    }
-    e.stopPropagation() // stop event from bubbling upwards
-}, false)
+newLink.setAttribute("href", "#");
+newLink.setAttribute("class", "more-link");
+newLink.innerHTML = "Read more";
+// newLink.style.display = "inline-block";
+// newLink.style.marginLeft = "10px";
+for(var i = 0; i < allParagraphs.length; i++) {
+  if(i === 0) {
+    continue;
+  }
+  allParagraphs[i].style.display = "none";
 
-searchfield.addEventListener(touchorclick, function(e){ // when user clicks on search field
-    e.stopPropagation() // stop event from bubbling upwards
-}, false)
+}
 
-document.addEventListener(touchorclick, function(e){ // when user clicks anywhere in document
-    searchcontainer.classList.remove('opensearch')
-    searchfield.blur()
-}, false)
+firstParagraph.appendChild(newLink);
